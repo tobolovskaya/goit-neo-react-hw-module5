@@ -1,38 +1,36 @@
-import { Link, Outlet, useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import styles from './MovieDetailsPage.module.css';
+import { getMovieDetails } from '../services/tmdbApi';
 
-const MovieDetailsPage = () => {
+function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchMovieDetails(movieId).then(setMovie);
+    const fetchMovieDetails = async () => {
+      const data = await getMovieDetails(movieId);
+      setMovie(data);
+    };
+
+    fetchMovieDetails();
   }, [movieId]);
 
-  const handleGoBack = () => {
-    navigate(-1);
-  };
+  if (!movie) return <div>Loading...</div>;
 
   return (
-    <div className={styles.movieDetailsPage}>
-      {movie && (
-        <>
-          <button onClick={handleGoBack}>Go back</button>
-          <h2>{movie.title}</h2>
-          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-          <p>{movie.overview}</p>
+    <div>
+      <button>
+        <Link to="/">Go back</Link>
+      </button>
+      <h1>{movie.title} ({movie.release_date.split('-')[0]})</h1>
+      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+      <p>{movie.overview}</p>
+      <Link to="cast">Cast</Link>
+      <Link to="reviews">Reviews</Link>
 
-          <div className={styles.additionalInfo}>
-            <Link to="cast">Cast</Link>
-            <Link to="reviews">Reviews</Link>
-          </div>
-          <Outlet />
-        </>
-      )}
+      <Outlet />
     </div>
   );
-};
+}
 
 export default MovieDetailsPage;

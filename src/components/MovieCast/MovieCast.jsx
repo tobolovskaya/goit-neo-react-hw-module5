@@ -1,24 +1,25 @@
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { getMovieCredits } from '../services/tmdbApi';
 
-const MovieCast = () => {
-  const { movieId } = useParams();
+function MovieCast({ movieId }) {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    fetchMovieCast(movieId).then(setCast);
+    const fetchCredits = async () => {
+      const data = await getMovieCredits(movieId);
+      setCast(data.cast);
+    };
+
+    fetchCredits();
   }, [movieId]);
 
   return (
     <ul>
       {cast.map(actor => (
-        <li key={actor.id}>
-          <p>{actor.name}</p>
-          <img src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`} alt={actor.name} />
-        </li>
+        <li key={actor.id}>{actor.name} as {actor.character}</li>
       ))}
     </ul>
   );
-};
+}
 
 export default MovieCast;
