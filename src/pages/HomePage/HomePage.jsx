@@ -1,36 +1,29 @@
 import { useEffect, useState } from 'react';
 import { getTrendingMovies } from '../../services/movieService';
+import MovieList from '../../components/MovieList/MovieList';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTrendingMovies = async () => {
       try {
-        const trendingMovies = await getTrendingMovies();
-        setMovies(trendingMovies.results); // Важливо використовувати results
+        const data = await getTrendingMovies();
+        setMovies(data.results);
       } catch (error) {
-        console.error('Failed to fetch trending movies:', error);
+        setError('Failed to fetch trending movies');
       }
     };
 
-    fetchData();
+    fetchTrendingMovies();
   }, []);
 
   return (
     <div>
-      <h1>Trending Movies</h1>
-      <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <h2>{movie.title}</h2>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-            />
-          </li>
-        ))}
-      </ul>
+      <h1>Trending Movies Today</h1>
+      {error && <p>{error}</p>}
+      <MovieList movies={movies} />
     </div>
   );
 };
