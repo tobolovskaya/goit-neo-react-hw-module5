@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { searchMovies } from '../../services/tmdbApi';
-import { searchMovies, getTrendingMovies, getMovieDetails, getMovieCredits, getMovieReviews } from '../../services/tmdbApi';
 
 
 function MoviesPage() {
