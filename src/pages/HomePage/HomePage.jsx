@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchTrendingMovies } from '../../services/movieService';
+import { getTrendingMovies } from '../../services/movieService';
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -7,7 +7,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const trendingMovies = await fetchTrendingMovies();
+        const trendingMovies = await getTrendingMovies();
         setMovies(trendingMovies);
       } catch (error) {
         console.error('Failed to fetch trending movies:', error);

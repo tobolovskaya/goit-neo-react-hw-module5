@@ -1,6 +1,6 @@
 import { useParams, Link, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getMovieDetails } from '../services/tmdbApi';
+import { getMovieDetails } from '../../services/tmdbApi';
 
 function MovieDetailsPage() {
   const { movieId } = useParams();

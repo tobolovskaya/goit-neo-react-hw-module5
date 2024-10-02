@@ -1,4 +1,4 @@
-import { searchMovies, getTrendingMovies, getMovieDetails, getMovieCredits, getMovieReviews } from './services/tmdbApi';
+import { searchMovies, getTrendingMovies, getMovieDetails, getMovieCredits, getMovieReviews } from './tmdbApi';
 
 // Пошук фільмів за ключовим словом
 searchMovies('Batman')
