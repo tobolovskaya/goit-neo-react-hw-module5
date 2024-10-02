@@ -22,9 +22,15 @@ export const searchMovies = async (query, page = 1) => {
 };
 
 export const getTrendingMovies = async () => {
-  const response = await api.get('trending/movie/day');
-  return response.data;
+  try {
+    const response = await api.get('trending/movie/day');
+    console.log(response.data); // Виведе результат запиту в консоль
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch trending movies:', error);
+  }
 };
+
 
 export const getMovieDetails = async (movieId) => {
   const response = await api.get(`movie/${movieId}`);
