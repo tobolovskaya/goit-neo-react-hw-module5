@@ -1,5 +1,3 @@
-import { searchMovies, getTrendingMovies, getMovieDetails, getMovieCredits, getMovieReviews } from './tmdbApi';
-
 import axios from 'axios';
 
 const API_KEY = 'f464d6d375aa30e43301f97dae474950'; // замініть на реальний ключ
