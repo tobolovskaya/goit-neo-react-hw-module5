@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_KEY = 'f464d6d375aa30e43301f97dae474950'; // замініть на ваш реальний ключ
+const API_KEY = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmNDY0ZDZkMzc1YWEzMGU0MzMwMWY5N2RhZTQ3NDk1MCIsIm5iZiI6MTcyNzg2OTk0Ny42ODE5NDQsInN1YiI6IjY2ZmM1OGQyNmVjNzgwNDc5NmQ2NWI1YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YfwznFAjH56RHmQrU66l69vnUvY0g_QRtmgCtdTGgMM'; // Замість ваш_ключ_API вставте свій токен
 
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3/',
