@@ -1,0 +1,22 @@
+.castContainer {
+  padding: 20px;
+}
+
+.castList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.castItem {
+  margin: 10px;
+  width: 150px;
+  text-align: center;
+}
+
+.actorImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

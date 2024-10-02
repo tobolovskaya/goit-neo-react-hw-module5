@@ -1,0 +1,23 @@
+.card {
+  width: 200px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.poster {
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+}

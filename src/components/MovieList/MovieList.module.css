@@ -1,0 +1,34 @@
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0;
+  list-style: none;
+}
+
+.movieItem {
+  width: 200px;
+  margin: 15px;
+  text-align: center;
+}
+
+.movieLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.movieImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.movieImage:hover {
+  transform: scale(1.05);
+}
+
+.movieTitle {
+  margin-top: 10px;
+  font-size: 1.2em;
+}
