@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; // Для типізації пропсів
-import { getMovieCredits } from '../services/tmdbApi';
+import { getMovieCredits } from '../../services/tmdbApi';
 import styles from './MovieCast.module.css'; // Підключення стилів
 
 function MovieCast({ movieId }) {

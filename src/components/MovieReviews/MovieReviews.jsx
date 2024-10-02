@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getMovieReviews } from '../services/tmdbApi';
+import { getMovieReviews } from '../../services/tmdbApi';
 
 function MovieReviews({ movieId }) {
   const [reviews, setReviews] = useState([]);
