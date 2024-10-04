@@ -1,33 +1,25 @@
-import { useParams, Link, Outlet } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getMovieDetails } from '../../services/tmdbApi';
+import { useEffect, useState, useRef } from 'react';
+import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
+import { getMovieDetails } from '../../services/movieService';
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const previousLocation = useRef(location.state?.from || '/movies');
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      const data = await getMovieDetails(movieId);
-      setMovie(data);
-    };
-
-    fetchMovieDetails();
+    getMovieDetails(movieId).then(setMovie);
   }, [movieId]);
 
   if (!movie) return <div>Loading...</div>;
 
   return (
     <div>
-      <button>
-        <Link to="/">Go back</Link>
-      </button>
-      <h1>{movie.title} ({movie.release_date.split('-')[0]})</h1>
+      <Link to={previousLocation.current}>Go back</Link>
+      <h1>{movie.title}</h1>
       <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
       <p>{movie.overview}</p>
-      <Link to="cast">Cast</Link>
-      <Link to="reviews">Reviews</Link>
-
       <Outlet />
     </div>
   );

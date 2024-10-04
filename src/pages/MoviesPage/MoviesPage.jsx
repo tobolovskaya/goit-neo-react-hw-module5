@@ -1,35 +1,27 @@
-import { useState } from 'react';
-import { searchMovies } from '../../services/tmdbApi';
-
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { searchMovies } from '../../services/movieService';
+import MovieList from '../../components/MovieList/MovieList';
 
 function MoviesPage() {
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
+  const query = searchParams.get('query') || '';
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    const results = await searchMovies(query);
-    setMovies(results.results);
+  useEffect(() => {
+    if (query) {
+      searchMovies(query).then(data => setMovies(data.results));
+    }
+  }, [query]);
+
+  const handleSearch = (searchQuery) => {
+    setSearchParams({ query: searchQuery });
   };
 
   return (
     <div>
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for movies..."
-        />
-        <button type="submit">Search</button>
-      </form>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <a href={`/movies/${movie.id}`}>{movie.title}</a>
-          </li>
-        ))}
-      </ul>
+      <SearchBar onSearch={handleSearch} />
+      {movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
 }

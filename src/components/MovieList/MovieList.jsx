@@ -1,19 +1,15 @@
-import PropTypes from 'prop-types'; // Для типізації пропсів
-import { Link } from 'react-router-dom'; // Для навігації між сторінками
-import styles from './MovieList.module.css'; // Підключення стилів
+import { Link, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function MovieList({ movies }) {
+  const location = useLocation();
+
   return (
-    <ul className={styles.movieList}>
+    <ul>
       {movies.map(movie => (
-        <li key={movie.id} className={styles.movieItem}>
-          <Link to={`/movies/${movie.id}`} className={styles.movieLink}>
-            <img
-              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-              alt={movie.title}
-              className={styles.movieImage}
-            />
-            <h3 className={styles.movieTitle}>{movie.title}</h3>
+        <li key={movie.id}>
+          <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+            {movie.title}
           </Link>
         </li>
       ))}
@@ -25,7 +21,6 @@ MovieList.propTypes = {
   movies: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      poster_path: PropTypes.string,
       title: PropTypes.string.isRequired,
     })
   ).isRequired,
