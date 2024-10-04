@@ -1,20 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getMovieReviews } from '../../services/tmdbApi';
+import { useParams } from 'react-router-dom';
+import { getMovieReviews } from '../../services/movieService';
 
-function MovieReviews({ movieId }) {
+function MovieReviews() {
+  const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const data = await getMovieReviews(movieId);
-        setReviews(data.results);
-      } catch (error) {
-        console.error('Failed to fetch reviews:', error);
-      }
-    };
-
-    fetchReviews();
+    getMovieReviews(movieId).then(data => setReviews(data.results));
   }, [movieId]);
 
   if (reviews.length === 0) return <p>No reviews for this movie.</p>;
