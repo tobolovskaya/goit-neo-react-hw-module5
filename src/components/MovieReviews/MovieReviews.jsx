@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviews } from '../../services/movieService';
 
@@ -7,10 +7,15 @@ function MovieReviews() {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    getMovieReviews(movieId).then(data => setReviews(data.results));
+    const fetchReviews = async () => {
+      const data = await getMovieReviews(movieId);
+      setReviews(data.results);
+    };
+
+    fetchReviews();
   }, [movieId]);
 
-  if (reviews.length === 0) return <p>No reviews for this movie.</p>;
+  if (!reviews.length) return <p>No reviews available.</p>;
 
   return (
     <ul>
