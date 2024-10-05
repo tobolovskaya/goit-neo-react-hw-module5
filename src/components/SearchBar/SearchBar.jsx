@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 
-function SearchBar({ onSubmit }) {
-  const [query, setQuery] = useState('');
+const SearchBar = ({ onSubmit }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleInputChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim() === '') {
-      alert('Please enter a search term');
-      return;
+    if (searchQuery.trim()) {
+      onSubmit(searchQuery); // Викликаємо функцію, передану через проп
+      setSearchQuery('');
     }
-    onSubmit(query);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search movies"
+        value={searchQuery}
+        onChange={handleInputChange}
+        placeholder="Search for movies..."
       />
       <button type="submit">Search</button>
     </form>
   );
-}
+};
 
 export default SearchBar;
